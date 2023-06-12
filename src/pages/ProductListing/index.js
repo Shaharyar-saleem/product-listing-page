@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Grid } from "@mui/material";
+import { Container, Grid } from "@mui/material";
 import ProductCard from "../../components/card/ProductCard";
 import Layout from "../../components/Layout";
 
@@ -29,11 +29,11 @@ const Index = () => {
   };
 
   return (
-    <Layout maxWidth="xl">
-      <Grid container spacing={4} mt={2}>
+    <Layout>
+      <Grid container maxWidth="lg" sx={{ margin: "auto" }} spacing={6} mt={2}>
         {products.map((product) => {
           return (
-            <Grid key={product.id} lg={3} md={6} xs={12} item>
+            <Grid key={product.id} lg={4} md={6} xs={12} item>
               <ProductCard product={product} />
             </Grid>
           );

@@ -1,5 +1,13 @@
 import React from "react";
-import { Card, CardContent, CardMedia, Typography } from "@mui/material";
+import {
+  styled,
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
+  Stack,
+  Box,
+} from "@mui/material";
 
 const productCard = ({ product }) => {
   const { category, image, price, title, description } = product;
@@ -10,20 +18,44 @@ const productCard = ({ product }) => {
         image={image}
         alt="product image"
         sx={{
-          height: 200,
+          height: 300,
           objectFit: "contain",
         }}
       />
-      {/* <img src={image} width={150} height={70}></img> */}
       <CardContent>
-        <Typography variant="h6">{title.slice(0, 52)}</Typography>
-        <Typography variant="subtitle1" color="text.secondary">
-          {price}
-        </Typography>
-        <Typography variant="body2">{description.slice(0, 150)}</Typography>
+        <Stack
+          direction="row"
+          spacing={2}
+          sx={{ alignItems: "center" }}
+          display="flex"
+          justifyContent="space-between"
+        >
+          <Box>
+            <Typography
+              variant="subtitle1"
+              sx={{ fontWeight: 550, height: 70 }}
+            >
+              {title.slice(0, 52)}
+            </Typography>
+            <CategoryStyled>{category}</CategoryStyled>
+          </Box>
+          <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
+            {`€${price}`}
+          </Typography>
+        </Stack>
       </CardContent>
     </Card>
   );
 };
+
+const CategoryStyled = styled(Typography)(
+  ({ theme }) => `
+   background-color: black;
+   color: white;
+   padding: ${theme.spacing(0.5)} ${theme.spacing(1)};
+   width: max-content;
+   font-size: ${theme.spacing(1.5)}
+`
+);
 
 export default productCard;

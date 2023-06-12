@@ -1,13 +1,19 @@
 import React from "react";
-import { AppBar, Toolbar, Typography, IconButton, Badge } from "@mui/material";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  IconButton,
+  Badge,
+  Grid,
+} from "@mui/material";
 import { ShoppingCart } from "@mui/icons-material";
 
-const Layout = ({ children, ...props }) => {
+const Layout = ({ children }) => {
   const cartItemsCount = 5; // Replace with your actual cart items count
-
   return (
     <>
-      <AppBar position="static" {...props}>
+      <AppBar position="sticky" sx={{ backgroundColor: "black" }}>
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             My Store
