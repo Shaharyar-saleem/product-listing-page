@@ -23,7 +23,7 @@ const Index = () => {
     console.log("page number:", page);
     try {
       const response = await fetch(
-        `https://fakestoreapi.com/products?&page=${page}`,
+        `https://dummyjson.com/products?&page=${page}`,
         {
           method: "GET",
           headers: {
@@ -32,7 +32,8 @@ const Index = () => {
           },
         }
       );
-      const newProducts = await response.json();
+      const responseJson = await response.json();
+      const newProducts = responseJson.products;
       setProducts((prevProducts) => [...prevProducts, ...newProducts]);
       //   if (products.length >= 50) {
       //     setHasMore(false);
@@ -41,6 +42,8 @@ const Index = () => {
       console.log(error);
     }
   };
+
+  console.log("products:", products);
 
   const loadMore = () => {
     setPage((prevPage) => prevPage + 1);
@@ -63,16 +66,10 @@ const Index = () => {
           </h4>
         }
       >
-        <Grid
-          container
-          maxWidth="lg"
-          sx={{ margin: "auto" }}
-          spacing={6}
-          mt={2}
-        >
+        <Grid container spacing={6}>
           {products.map((product, key) => {
             return (
-              <Grid key={key} lg={4} md={6} xs={12} item>
+              <Grid key={key} lg={4} md={6} sm={12} xs={12} item>
                 <ProductCard product={product} />
               </Grid>
             );

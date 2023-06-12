@@ -5,7 +5,7 @@ import {
   Typography,
   IconButton,
   Badge,
-  Grid,
+  Box,
 } from "@mui/material";
 import { ShoppingCart } from "@mui/icons-material";
 
@@ -25,7 +25,9 @@ const Layout = ({ children }) => {
           </IconButton>
         </Toolbar>
       </AppBar>
-      {children}
+      <Box mt={4} maxWidth="lg" sx={{ ml: "auto", mr: "auto" }}>
+        {children}
+      </Box>
     </>
   );
 };

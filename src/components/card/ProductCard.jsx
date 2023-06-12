@@ -10,12 +10,12 @@ import {
 } from "@mui/material";
 
 const productCard = ({ product }) => {
-  const { category, image, price, title, description } = product;
+  const { category, thumbnail, price, title, description } = product;
   return (
     <Card sx={{ position: "relative" }}>
       <CardMedia
         component="img"
-        image={image}
+        image={thumbnail}
         alt="product image"
         sx={{
           height: 300,
@@ -56,7 +56,6 @@ const CategoryStyled = styled(Typography)(
    position: absolute;
    top: 5px;
    left: 5px;
-   opacity: 0.6;
 `
 );
 
