@@ -7,10 +7,14 @@ const productCard = ({ product }) => {
     <Card>
       <CardMedia
         component="img"
-        height="200"
         image={image}
         alt="product image"
+        sx={{
+          height: 200,
+          objectFit: "contain",
+        }}
       />
+      {/* <img src={image} width={150} height={70}></img> */}
       <CardContent>
         <Typography variant="h6">{title.slice(0, 52)}</Typography>
         <Typography variant="subtitle1" color="text.secondary">

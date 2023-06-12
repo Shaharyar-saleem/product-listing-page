@@ -8,7 +8,7 @@ const Index = () => {
 
   useEffect(() => {
     fetchAllProducts();
-  }, [products]);
+  }, []);
 
   const fetchAllProducts = async () => {
     try {
@@ -30,7 +30,7 @@ const Index = () => {
 
   return (
     <Layout maxWidth="xl">
-      <Grid container spacing={4}>
+      <Grid container spacing={4} mt={2}>
         {products.map((product) => {
           return (
             <Grid key={product.id} lg={3} md={6} xs={12} item>
