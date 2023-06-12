@@ -12,7 +12,7 @@ import {
 const productCard = ({ product }) => {
   const { category, image, price, title, description } = product;
   return (
-    <Card>
+    <Card sx={{ position: "relative" }}>
       <CardMedia
         component="img"
         image={image}
@@ -29,12 +29,10 @@ const productCard = ({ product }) => {
           sx={{ alignItems: "center" }}
           display="flex"
           justifyContent="space-between"
+          height={70}
         >
           <Box>
-            <Typography
-              variant="subtitle1"
-              sx={{ fontWeight: 550, height: 70 }}
-            >
+            <Typography variant="subtitle1" sx={{ fontWeight: 550 }}>
               {title.slice(0, 52)}
             </Typography>
             <CategoryStyled>{category}</CategoryStyled>
@@ -54,7 +52,11 @@ const CategoryStyled = styled(Typography)(
    color: white;
    padding: ${theme.spacing(0.5)} ${theme.spacing(1)};
    width: max-content;
-   font-size: ${theme.spacing(1.5)}
+   font-size: ${theme.spacing(1.5)};
+   position: absolute;
+   top: 5px;
+   left: 5px;
+   opacity: 0.6;
 `
 );
 
