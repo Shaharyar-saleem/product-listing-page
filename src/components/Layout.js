@@ -10,16 +10,18 @@ import {
   Drawer,
   List,
   ListItem,
-  ListItemText,
+  Stack,
 } from "@mui/material";
 import { ShoppingCart } from "@mui/icons-material";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const Layout = ({ children }) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const cartItemsCount = 5; // Replace with your actual cart items count
-  const drawerWidth = 250;
-  const { state } = useContext(Context);
-  console.log("Cart value:", state);
+  const { state, dispatch } = useContext(Context);
+  const { cart } = state;
+  let totalAmount = 0;
+  let totalQuantity = 0;
+
   const handleCartClick = () => {
     setIsCartOpen(true);
   };
@@ -27,6 +29,12 @@ const Layout = ({ children }) => {
   const handleCloseCart = () => {
     setIsCartOpen(false);
   };
+
+  for (const [key] of Object.entries(cart)) {
+    totalAmount = totalAmount + cart[key].price * cart[key].quantity;
+    console.log("product quantity here:", cart[key].quantity);
+    totalQuantity = totalQuantity + cart[key].quantity;
+  }
 
   return (
     <>
@@ -40,7 +48,10 @@ const Layout = ({ children }) => {
             aria-label="cart"
             onClick={handleCartClick}
           >
-            <Badge badgeContent={cartItemsCount} color="error">
+            <Badge
+              badgeContent={totalQuantity === 0 ? "0" : totalQuantity}
+              color="error"
+            >
               <ShoppingCart />
             </Badge>
           </IconButton>
@@ -52,13 +63,54 @@ const Layout = ({ children }) => {
       <Drawer anchor="right" open={isCartOpen} onClose={handleCloseCart}>
         <Box sx={{ width: 250 }} onClick={handleCloseCart}>
           <List>
-            {/* Replace with your logic to map over the cart items */}
-            {Array.from(Array(cartItemsCount).keys()).map((item) => (
-              <ListItem button key={item}>
-                <ListItemText primary={`Item ${item + 1}`} />
-              </ListItem>
-            ))}
+            {Object.entries(cart).map(([key, value]) => {
+              return (
+                <ListItem key={key}>
+                  <Stack
+                    direction="row"
+                    spacing={1}
+                    display="flex"
+                    alignItems="center"
+                  >
+                    <Box>
+                      <img
+                        src={cart[key].thumbnail}
+                        alt={cart[key].title}
+                        width={80}
+                        height={50}
+                      />
+                    </Box>
+                    <Box>
+                      <Typography variant="subtitle2">
+                        {cart[key].title}
+                      </Typography>
+                      <Typography variant="subtitle2" color="secondary">
+                        {`€${cart[key].price}`}
+                      </Typography>
+                    </Box>
+                    <Box pl={2}>
+                      <IconButton
+                        aria-label="delete"
+                        size="small"
+                        onClick={() => {
+                          dispatch({
+                            type: "REMOVE_FROM_CART",
+                            payload: cart[key],
+                          });
+                        }}
+                      >
+                        <DeleteIcon fontSize="inherit" />
+                      </IconButton>
+                    </Box>
+                  </Stack>
+                </ListItem>
+              );
+            })}
           </List>
+          <Typography
+            textAlign="center"
+            sx={{ fontWeight: "bold" }}
+          >{`Total: €${totalAmount}`}</Typography>
         </Box>
       </Drawer>
     </>

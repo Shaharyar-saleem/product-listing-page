@@ -22,7 +22,6 @@ const Index = () => {
   }, [page, selectedFilter]);
 
   const fetchProducts = async () => {
-    console.log("page number:", page);
     try {
       const response = await fetch(
         `https://dummyjson.com/products?&page=${page}`,
