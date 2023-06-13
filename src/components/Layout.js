@@ -25,7 +25,7 @@ const Layout = ({ children }) => {
           </IconButton>
         </Toolbar>
       </AppBar>
-      <Box mt={4} maxWidth="lg" sx={{ ml: "auto", mr: "auto" }}>
+      <Box mt={8} maxWidth="lg" sx={{ ml: "auto", mr: "auto" }}>
         {children}
       </Box>
     </>

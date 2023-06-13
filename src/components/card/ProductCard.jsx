@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   styled,
   Card,
@@ -7,12 +7,100 @@ import {
   Typography,
   Stack,
   Box,
+  Rating,
+  Button,
 } from "@mui/material";
+import Carousel from "react-material-ui-carousel";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 
-const productCard = ({ product }) => {
-  const { category, thumbnail, price, title, description } = product;
+const ProductCard = ({ product }) => {
+  const {
+    category,
+    thumbnail,
+    price,
+    title,
+    description,
+    rating,
+    images,
+    brand,
+    stock,
+    discountPercentage,
+  } = product;
+  const [anchor, setAnchor] = useState(false);
+  const handlePopoverOpen = () => {
+    setAnchor(true);
+  };
+
+  const handlePopoverClose = () => {
+    setAnchor(false);
+  };
+
   return (
-    <Card sx={{ position: "relative" }}>
+    <Card
+      sx={{ position: "relative" }}
+      onMouseEnter={handlePopoverOpen}
+      onMouseLeave={handlePopoverClose}
+      height={500}
+    >
+      {anchor && (
+        <CardContent
+          sx={{
+            position: "absolute",
+            zIndex: 101,
+            top: "0px",
+            left: "0px",
+            right: "0px",
+            bottom: "0px",
+            backgroundColor: "white",
+            animationName: "slide-in",
+            animationDuration: "40s",
+            animationDelay: "50s",
+            overflow: "hidden",
+          }}
+        >
+          <Box pt={3}>
+            <Typography variant="subtitle1">
+              {`${description.slice(0, 70)}...`}
+            </Typography>
+            <Typography variant="subtitle2" color="primary">
+              {`Brand:  ${brand}`}
+            </Typography>
+            <Stack direction="row" spacing={2}>
+              <Typography
+                variant="subtitle2"
+                color="secondary"
+              >{`Price: €${price}`}</Typography>
+              <Typography
+                variant="subtitle2"
+                color="error"
+              >{`${discountPercentage}% off`}</Typography>
+            </Stack>
+          </Box>
+          <Carousel>
+            {images.map((image, index) => (
+              <CardMedia
+                key={index}
+                component="img"
+                alt={`Product Image ${index + 1}`}
+                image={image}
+                style={{ maxHeight: 200, objectFit: "contain" }}
+              />
+            ))}
+          </Carousel>
+          <Box display="flex" justifyContent="center" mt={1}>
+            <Button
+              variant="outlined"
+              color="primary"
+              startIcon={<AddShoppingCartIcon />}
+              onClick={() => {
+                // Add to cart logic here
+              }}
+            >
+              Add to Cart
+            </Button>
+          </Box>
+        </CardContent>
+      )}
       <CardMedia
         component="img"
         image={thumbnail}
@@ -22,14 +110,14 @@ const productCard = ({ product }) => {
           objectFit: "contain",
         }}
       />
-      <CardContent>
+      <CardContent sx={{ zIndex: 10 }}>
         <Stack
           direction="row"
           spacing={2}
           sx={{ alignItems: "center" }}
           display="flex"
           justifyContent="space-between"
-          height={70}
+          height={60}
         >
           <Box>
             <Typography variant="subtitle1" sx={{ fontWeight: 550 }}>
@@ -41,6 +129,7 @@ const productCard = ({ product }) => {
             {`€${price}`}
           </Typography>
         </Stack>
+        <Rating sx={{ zIndex: 11 }} name="read-only" value={rating} readOnly />
       </CardContent>
     </Card>
   );
@@ -56,7 +145,8 @@ const CategoryStyled = styled(Typography)(
    position: absolute;
    top: 5px;
    left: 5px;
+   z-index: 102;
 `
 );
 
-export default productCard;
+export default ProductCard;
