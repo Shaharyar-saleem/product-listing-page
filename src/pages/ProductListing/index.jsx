@@ -18,7 +18,7 @@ const Index = () => {
      */
     setTimeout(() => {
       fetchProducts();
-    }, 1000);
+    }, 100);
   }, [page, selectedFilter]);
 
   const fetchProducts = async () => {

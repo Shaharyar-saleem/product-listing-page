@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { Context } from "../../context";
 import {
   styled,
   Card,
@@ -34,6 +35,8 @@ const ProductCard = ({ product }) => {
   const handlePopoverClose = () => {
     setAnchor(false);
   };
+
+  const { dispatch } = useContext(Context);
 
   return (
     <Card
@@ -93,7 +96,7 @@ const ProductCard = ({ product }) => {
               color="primary"
               startIcon={<AddShoppingCartIcon />}
               onClick={() => {
-                // Add to cart logic here
+                dispatch({ type: "ADD_TO_CART", payload: product });
               }}
             >
               Add to Cart
