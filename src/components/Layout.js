@@ -61,7 +61,7 @@ const Layout = ({ children }) => {
         </Box>
       </AppBar>
 
-      <Box mt={8} pl={2} pr={2} maxWidth="lg" sx={{ ml: "auto", mr: "auto" }}>
+      <Box mt={8} maxWidth="lg" sx={{ ml: "auto", mr: "auto" }}>
         <Box sx={{ marginRight: 1, marginLeft: 1 }}>{children}</Box>
       </Box>
 

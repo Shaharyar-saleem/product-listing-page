@@ -90,7 +90,7 @@ const ProductCard = ({ product, selectProducts, selectedProducts }) => {
                 component="img"
                 alt={`Product Image ${index + 1}`}
                 image={image}
-                style={{ maxHeight: 200, objectFit: "contain" }}
+                style={{ maxHeight: 180, objectFit: "contain" }}
               />
             ))}
           </Carousel>

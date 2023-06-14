@@ -98,12 +98,13 @@ const Index = () => {
       <Box display="flex" justifyContent={{ xs: "center", md: "flex-end" }}>
         <Stack spacing={2} direction="row">
           <Button
+            height={56}
             onClick={() => {
               setOverlayOpen(true);
             }}
             variant="outlined"
           >
-            {`Open Compare (${selectedProducts?.length})`}
+            {`Compare (${selectedProducts?.length})`}
           </Button>
           <FilterDropdown
             filters={filters}
