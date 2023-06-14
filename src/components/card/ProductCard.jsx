@@ -104,7 +104,7 @@ const ProductCard = ({ product, selectProducts, selectedProducts }) => {
                   dispatch({ type: "ADD_TO_CART", payload: product });
                 }}
               >
-                Add to Cart
+                Buy
               </Button>
             </Box>
             <Box>
