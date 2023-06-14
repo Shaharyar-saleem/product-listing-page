@@ -41,7 +41,10 @@ const ProductCard = ({ product, selectProducts, selectedProducts }) => {
 
   return (
     <Card
-      sx={{ position: "relative" }}
+      sx={{
+        position: "relative",
+        boxShadow: "1px 3px 23px -15px rgba(0,0,0,0.75)",
+      }}
       onMouseEnter={handlePopoverOpen}
       onMouseLeave={handlePopoverClose}
       height={500}

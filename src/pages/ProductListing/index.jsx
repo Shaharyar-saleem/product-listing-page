@@ -95,7 +95,7 @@ const Index = () => {
 
   return (
     <Layout>
-      <Box display="flex" justifyContent="flex-end">
+      <Box display="flex" justifyContent={{ xs: "center", md: "flex-end" }}>
         <Stack spacing={2} direction="row">
           <Button
             onClick={() => {

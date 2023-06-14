@@ -40,27 +40,31 @@ const Layout = ({ children }) => {
   return (
     <>
       <AppBar position="sticky" sx={{ backgroundColor: "black" }}>
-        <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            My Store
-          </Typography>
-          <IconButton
-            color="inherit"
-            aria-label="cart"
-            onClick={handleCartClick}
-          >
-            <Badge
-              badgeContent={totalQuantity === 0 ? "0" : totalQuantity}
-              color="error"
+        <Box sx={{ marginRight: 1, marginLeft: 1 }}>
+          <Toolbar>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              My Store
+            </Typography>
+            <IconButton
+              color="inherit"
+              aria-label="cart"
+              onClick={handleCartClick}
             >
-              <ShoppingCart />
-            </Badge>
-          </IconButton>
-        </Toolbar>
+              <Badge
+                badgeContent={totalQuantity === 0 ? "0" : totalQuantity}
+                color="error"
+              >
+                <ShoppingCart />
+              </Badge>
+            </IconButton>
+          </Toolbar>
+        </Box>
       </AppBar>
-      <Box mt={8} maxWidth="lg" sx={{ ml: "auto", mr: "auto" }}>
-        {children}
+
+      <Box mt={8} pl={2} pr={2} maxWidth="lg" sx={{ ml: "auto", mr: "auto" }}>
+        <Box sx={{ marginRight: 1, marginLeft: 1 }}>{children}</Box>
       </Box>
+
       <Drawer anchor="right" open={isCartOpen} onClose={handleCloseCart}>
         <Box sx={{ width: 250 }} onClick={handleCloseCart}>
           <List>

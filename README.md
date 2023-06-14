@@ -1,4 +1,6 @@
-Product listing page for arvato case study
+###Product listing page for arvato case study
+
+Project is accessable at: https://products-listing.surge.sh/
 
 Dummy product data is fetched from this API: https://dummyjson.com/docs/products
 
