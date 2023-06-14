@@ -1,4 +1,8 @@
 import React, { useState, useContext } from "react";
+
+import DeleteIcon from "@mui/icons-material/Delete";
+import { ShoppingCart } from "@mui/icons-material";
+
 import { Context } from "../context";
 import {
   AppBar,
@@ -12,8 +16,6 @@ import {
   ListItem,
   Stack,
 } from "@mui/material";
-import { ShoppingCart } from "@mui/icons-material";
-import DeleteIcon from "@mui/icons-material/Delete";
 
 const Layout = ({ children }) => {
   const [isCartOpen, setIsCartOpen] = useState(false);

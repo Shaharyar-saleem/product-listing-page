@@ -1,5 +1,9 @@
 import React, { useState, useContext } from "react";
-import { Context } from "../../context";
+
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import CompareArrowsIcon from "@mui/icons-material/CompareArrows";
+import Carousel from "react-material-ui-carousel";
+
 import {
   styled,
   Card,
@@ -11,11 +15,10 @@ import {
   Rating,
   Button,
 } from "@mui/material";
-import Carousel from "react-material-ui-carousel";
-import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import CompareArrowsIcon from "@mui/icons-material/CompareArrows";
+import { Context } from "../../context";
 
 const ProductCard = ({ product, selectProducts, selectedProducts }) => {
+  const { dispatch } = useContext(Context);
   const {
     category,
     thumbnail,
@@ -35,8 +38,6 @@ const ProductCard = ({ product, selectProducts, selectedProducts }) => {
   const handlePopoverClose = () => {
     setAnchor(false);
   };
-
-  const { dispatch } = useContext(Context);
 
   return (
     <Card

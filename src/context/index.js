@@ -23,7 +23,6 @@ function cartReducer(state, action) {
       };
     case "REMOVE_FROM_CART":
       let newCart = { ...state.cart };
-      console.log("remove cart called");
       delete newCart[action.payload.id];
       return {
         ...state,
