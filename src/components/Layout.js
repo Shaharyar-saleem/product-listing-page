@@ -32,7 +32,6 @@ const Layout = ({ children }) => {
 
   for (const [key] of Object.entries(cart)) {
     totalAmount = totalAmount + cart[key].price * cart[key].quantity;
-    console.log("product quantity here:", cart[key].quantity);
     totalQuantity = totalQuantity + cart[key].quantity;
   }
 

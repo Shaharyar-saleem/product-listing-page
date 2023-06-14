@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { Grid, Box } from "@mui/material";
+
+import { Grid, Box, Button, Stack } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
-import ProductCard from "../../components/card/ProductCard";
+
+import ProductComparisonOverlay from "../../components/ProductComparisonOverlay";
 import FilterDropdown from "../../components/input/FilterDropdown";
+import ProductCard from "../../components/card/ProductCard";
 import Layout from "../../components/Layout";
 
 const Index = () => {
   const [products, setProducts] = useState([]);
-  const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
   const [selectedFilter, setSelectedFilter] = useState("");
+  const [selectedProducts, setSelectedProducts] = useState([]);
+  const [overlayOpen, setOverlayOpen] = useState(false);
+  const filters = ["Price Descending", "Price Ascending", "Discount", "Rating"];
 
   useEffect(() => {
     /**
@@ -60,12 +65,13 @@ const Index = () => {
         );
         setProducts(sortedProducts);
       }
-      // if (products.length >= 50) {
-      //   setHasMore(false);
-      // }
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handleSelectedProducts = (products) => {
+    setSelectedProducts([...selectedProducts, products]);
   };
 
   const handleFilterChange = (event) => {
@@ -76,21 +82,41 @@ const Index = () => {
     setPage((prevPage) => prevPage + 1);
   };
 
-  const filters = ["Price Descending", "Price Ascending", "Discount", "Rating"];
+  const handleOverlayClose = () => {
+    setOverlayOpen(false);
+  };
+
+  const handleRemoveProduct = (productId) => {
+    const updatedSelectedProducts = selectedProducts.filter(
+      (product) => product.id !== productId
+    );
+    setSelectedProducts(updatedSelectedProducts);
+  };
 
   return (
     <Layout>
       <Box display="flex" justifyContent="flex-end">
-        <FilterDropdown
-          filters={filters}
-          selectedFilter={selectedFilter}
-          onFilterChange={handleFilterChange}
-        />
+        <Stack spacing={2} direction="row">
+          <Button
+            onClick={() => {
+              setOverlayOpen(true);
+            }}
+            variant="outlined"
+          >
+            {`Open Compare (${selectedProducts?.length})`}
+          </Button>
+          <FilterDropdown
+            filters={filters}
+            selectedFilter={selectedFilter}
+            onFilterChange={handleFilterChange}
+          />
+        </Stack>
       </Box>
+
       <InfiniteScroll
         dataLength={products.length}
         next={loadMore}
-        hasMore={hasMore}
+        hasMore={true}
         loader={
           <h4
             style={{
@@ -103,11 +129,21 @@ const Index = () => {
           </h4>
         }
       >
+        <ProductComparisonOverlay
+          open={overlayOpen}
+          onClose={handleOverlayClose}
+          onRemoveProduct={handleRemoveProduct}
+          products={selectedProducts}
+        />
         <Grid container spacing={4} mt={2}>
           {products.map((product, key) => {
             return (
               <Grid key={key} lg={4} md={6} sm={12} xs={12} item>
-                <ProductCard product={product} />
+                <ProductCard
+                  product={product}
+                  selectProducts={handleSelectedProducts}
+                  selectedProducts={selectedProducts}
+                />
               </Grid>
             );
           })}

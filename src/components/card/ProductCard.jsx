@@ -13,8 +13,9 @@ import {
 } from "@mui/material";
 import Carousel from "react-material-ui-carousel";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import CompareArrowsIcon from "@mui/icons-material/CompareArrows";
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, selectProducts, selectedProducts }) => {
   const {
     category,
     thumbnail,
@@ -24,7 +25,6 @@ const ProductCard = ({ product }) => {
     rating,
     images,
     brand,
-    stock,
     discountPercentage,
   } = product;
   const [anchor, setAnchor] = useState(false);
@@ -90,18 +90,41 @@ const ProductCard = ({ product }) => {
               />
             ))}
           </Carousel>
-          <Box display="flex" justifyContent="center" mt={1}>
-            <Button
-              variant="outlined"
-              color="primary"
-              startIcon={<AddShoppingCartIcon />}
-              onClick={() => {
-                dispatch({ type: "ADD_TO_CART", payload: product });
-              }}
-            >
-              Add to Cart
-            </Button>
-          </Box>
+          <Stack direction="row" justifyContent="center" spacing={2} mt={1}>
+            <Box>
+              <Button
+                variant="outlined"
+                color="primary"
+                startIcon={<AddShoppingCartIcon />}
+                onClick={() => {
+                  dispatch({ type: "ADD_TO_CART", payload: product });
+                }}
+              >
+                Add to Cart
+              </Button>
+            </Box>
+            <Box>
+              {selectedProducts?.filter((item) => item.id === product.id)
+                .length > 0 ? (
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  startIcon={<CompareArrowsIcon />}
+                >
+                  In Compare
+                </Button>
+              ) : (
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  startIcon={<CompareArrowsIcon />}
+                  onClick={() => selectProducts(product)}
+                >
+                  Compare
+                </Button>
+              )}
+            </Box>
+          </Stack>
         </CardContent>
       )}
       <CardMedia
