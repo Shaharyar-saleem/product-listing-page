@@ -1,4 +1,4 @@
-###Product listing page for arvato case study
+## Product listing page for arvato case study
 
 Project is accessable at: https://products-listing.surge.sh/
 
